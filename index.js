@@ -1,21 +1,33 @@
 const express = require("express")
 const app = express()
 app.use(express.json())
-const alunos = []
-app.get("/alunos",(pedido, resposta) => {
-    resposta.json(alunos)
+let usuarios =[{
+    nome:"Thiago",
+    idade:38
+}]
+app.get("/",(req,res) => {
+ res.json({mensagem: "O servidor tá no ar !"})
 })
-app.post("/alunos", (pedido, resposta) => {
-    
-    const aluno = {
-        matricula:pedido.body.matricula,
-        nome:pedido.body.nome,
-        dataNasc:pedido.body.dataNasc,
-        email:pedido.body.email
-    }
-    alunos.push(aluno)
-    resposta.json(aluno)
+app.get("/usuarios", (req,res) => {
+    res.json({usuarios: usuarios})
 })
-app.listen(3000,() => (
-    console.log("API rodando na porta 3000!")
-))
+
+app.post('/usuarios',(pedido,resposta)=>{
+
+    usuarios.push(pedido.body)
+    resposta.json({
+        mensagem:"Salvo com sucesso."
+    })
+})
+app.delete("/usuarios/:nome",(pedido,resposta) =>{
+    const usuarioApagar = usuarios.find(u => u.nome === pedido.params.nome)
+    usuarios = usuarios.filter(u => u.nome  !== pedido.params.nome)
+    resposta.json({
+        mensagem: " Usuário deletado com suceso !",
+        usuariosApagado: usuarioApagar
+    })
+
+})
+app.listen(3000,() => {
+    console.log("🚀 Hellow world")
+})
