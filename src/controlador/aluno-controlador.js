@@ -1,6 +1,5 @@
-const { alunos } = require("../dados/db")
+import { alunos } from "../dados/db.js"
 
-import (alunos)
 const listar = ((pedido, resposta) => {
     resposta.json(alunos)
 })

@@ -1,10 +1,10 @@
 import { Router } from "express"
-const controlador = require ('../controlador/aluno-controlador')
+import * as controlador from '../controlador/professor-controlador.js'
 
 const router = Router ()
- router.length('/alunos', controlador.listar)
- router.post('/controlador',controlador.criar)
+ router.get('/alunos', controlador.listar)
+ router.post('/alunos',controlador.criar)
  router.put('/alunos/:id' ,controlador.editar)
  router.delete('/alunos/:id', controlador.deletar)
 
- export const router
+ export const alunosRoutes = router
