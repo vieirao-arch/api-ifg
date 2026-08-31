@@ -1,5 +1,5 @@
 import { Router } from "express"
-import * as controlador from '../controlador/professor-controlador.js'
+import * as controlador from '../controlador/aluno-controlador.js'
 
 const router = Router ()
  router.get('/alunos', controlador.listar)

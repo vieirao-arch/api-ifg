@@ -7,8 +7,8 @@ const criar = ( (pedido, resposta) => {
     
     const aluno = {
         id:alunos.length + 1,
-        matricula:pedido.body.matricula,
         nome:pedido.body.nome,
+        codico:pedido.body.codico,
         dataNasc:pedido.body.dataNasc,
         email:pedido.body.email
     }
@@ -18,7 +18,7 @@ const criar = ( (pedido, resposta) => {
 const editar = ( (pedido,resposta)  => {
     const index = alunos.findIndex(aluno => aluno.id == pedido.params.id)
     if(index == -1) {
-        return resposta.json({mensagem:"Aluno não encontrado!"})
+        return resposta.json({mensagem:"aluno não encontrado!"})
     }
     alunos[index] = {...alunos[index], ...pedido.body}
     resposta.json(alunos[index])
@@ -26,10 +26,10 @@ const editar = ( (pedido,resposta)  => {
 const deletar = ((pedido, resposta) => {
     const index = alunos.findIndex(aluno => aluno.id == pedido.params.id)
     if (index === -1) {
-        return resposta.json({mensagem:"Aluno não encontrado"})
+        return resposta.json({mensagem:"aluno não encontrado"})
     }
     alunos.splice(index,1)
-    resposta.json({mensagem:"Aluno deletado com sucesso"})
+    resposta.json({mensagem:"aluno deletado com sucesso"})
 
 })
 
