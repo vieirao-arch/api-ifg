@@ -1,36 +1,18 @@
-import { alunos } from "../dados/db.js"
+import banco from "../dados/db.js";
+const listar = async (pedido,resposta) => {
+const [alunos] = await banco.query('select * from alunos')
+resposta.json(alunos)
+}
+const criar = async (pedido,resposta) => {
+    const {matricula,nome,dataNasc,email} = pedido.body
+    const [resultado] = await banco.query('insert into alunos(matricula,nome,dataNasc,email) values(?,?,?.?)',
+        [matricula,nome,dataNasc,email]
+    )
+    resposta.json({id: resultado.insertid,matricula,nomem,dataNasc,email})
+}
+const editar = async (pedido,resposta) => {
+    const {matricula,nome,dataNasc,email} = pedido.body
+    const {id} = pedido.params
+}
 
-const listar = ((pedido, resposta) => {
-    resposta.json(alunos)
-})
-const criar = ( (pedido, resposta) => {
-    
-    const aluno = {
-        id:alunos.length + 1,
-        nome:pedido.body.nome,
-        codico:pedido.body.codico,
-        dataNasc:pedido.body.dataNasc,
-        email:pedido.body.email
-    }
-    alunos.push(aluno)
-    resposta.json(aluno)
-})
-const editar = ( (pedido,resposta)  => {
-    const index = alunos.findIndex(aluno => aluno.id == pedido.params.id)
-    if(index == -1) {
-        return resposta.json({mensagem:"aluno não encontrado!"})
-    }
-    alunos[index] = {...alunos[index], ...pedido.body}
-    resposta.json(alunos[index])
-})
-const deletar = ((pedido, resposta) => {
-    const index = alunos.findIndex(aluno => aluno.id == pedido.params.id)
-    if (index === -1) {
-        return resposta.json({mensagem:"aluno não encontrado"})
-    }
-    alunos.splice(index,1)
-    resposta.json({mensagem:"aluno deletado com sucesso"})
-
-})
-
-export { listar, criar , editar , deletar }
+export{listar}

@@ -1,7 +1,8 @@
-const alunos = []
-const professores = []
-const disciplinas = []
-const cursos = []
-const  turma = []
-
-export {alunos,professores,disciplinas,cursos,turma}
+import mysql from 'mysql2/promise'
+const banco = await mysql.createConnection({
+    host:'localhost',
+    user:'root',
+    password:'',
+    database:'escola'
+})
+export default banco
