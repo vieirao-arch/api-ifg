@@ -1,18 +1,8 @@
-import mysql from 'mysql2/promise'
-const banco = await mysql.createConnection({
-    host:'escola-ifg-escola-ifg.f.aivencloud.com',
-    port:10556,
-    user:'avnadmin',
-    password:'',
-    database:'escola'
-    ssl:(
-        rejectUnauthorrized: false
-    )
-})
-export default banco
+import pg from 'pg'
 
-const professor = []
-const discoplinas = []
-const cursos = []
-const turmar = []
-export ( professores , disciplinas , cursos, turmas )
+const banco = new pg.Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false },
+})
+
+export default banco
